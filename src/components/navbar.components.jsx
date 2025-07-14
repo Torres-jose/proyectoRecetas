@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Login from "../pages/Login.pages";
 import Home from "../pages/Home.pages";
 import Landing from "../pages/Landing.pages";
+import Register from "../pages/registre.pages";
 function Navbar({isLoggedIn}) {
     const navigate = useNavigate();
 
@@ -18,10 +19,10 @@ function Navbar({isLoggedIn}) {
         isLoggedIn ? navigate('/Home'): navigate('/');
     }
 
-    /*const irAlRegistro = () =>{
-        navigate('/registro')
-         <li className="nav-item"><button onClick={irAlRegistro}>Login</button></li>
-    };*/
+    const irAlRegistro = () =>{
+        navigate('/register')
+      
+    };
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
   <div className="container-fluid">
@@ -50,7 +51,7 @@ function Navbar({isLoggedIn}) {
             <>
             
            <li className="nav-item"><button onClick={irAlLogin}>Login</button></li> 
-           
+          <li className="nav-item"><button onClick={irAlRegistro}>Registrar</button></li>
             </>
         )}
       </ul>
