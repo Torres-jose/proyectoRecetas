@@ -4,6 +4,7 @@ import Landing from "./pages/Landing.pages";
 import Login from "./pages/Login.pages";
 import Home from "./pages/Home.pages";
 import Register from "./pages/registre.pages";
+import DetalleRecetas from "./pages/DetalleRecetas.pages";
 
 function App() {
   const isLoggedIn = !!localStorage.getItem('token');
@@ -16,6 +17,7 @@ function App() {
        <Route path="/login" element ={<Login/>} />
        <Route path="/home" element ={<Home/>}/>
        <Route path="/register" element ={<Register/>}/>
+       <Route path="/detalleRecetas" element ={<DetalleRecetas/>}/>
     </Routes>
    </>
      

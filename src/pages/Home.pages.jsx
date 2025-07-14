@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { buscarPorNombre } from "../api/apiexterna.api";
+import DetalleRecetas from "./DetalleRecetas.pages";
 
 function Home() {
   const [termino, setTermino] = useState("");
@@ -36,7 +37,7 @@ function Home() {
               <div className="card-body">
                 <h5 className="card-title">{receta.strMeal}</h5>
                 <a
-                  href={`/detalle/${receta.idMeal}`}
+                  href={`/DetalleRecetas/${receta.idMeal}`}
                   className="btn btn-outline-secondary btn-sm"
                 >
                   Ver detalle
