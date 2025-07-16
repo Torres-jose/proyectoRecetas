@@ -1,27 +1,14 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { obtenerDetallePorId } from "../api/apiexterna.api";
 
-function DetalleRecetas() {
-  const { id } = useParams();
-  const [receta, setReceta] = useState(null);
+import { useLocation } from "react-router-dom";
+import RecipeDetails from "../components/RecipeDetails.components";
 
-  useEffect(() => {
-    obtenerDetallePorId(id).then(setReceta);
-  }, [id]);
+function DetalleReceta() {
+  const location = useLocation();
+  const receta = location.state?.receta;
 
-  if (!receta) return <p>Cargando...</p>;
+  if (!receta) return <p>No hay receta para mostrar</p>;
 
-  return (
-    <div className="container mt-4">
-      <h2>{receta.strMeal}</h2>
-      <img src={receta.strMealThumb} alt={receta.strMeal} className="img-fluid" />
-      <p><strong>Categoría:</strong> {receta.strCategory}</p>
-      <p><strong>Área:</strong> {receta.strArea}</p>
-      <p><strong>Instrucciones:</strong></p>
-      <p>{receta.strInstructions}</p>
-    </div>
-  );
+  return <RecipeDetails receta={receta} />;
 }
 
-export default DetalleRecetas;
+export default DetalleReceta;

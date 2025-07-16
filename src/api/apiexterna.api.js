@@ -6,6 +6,8 @@ const MEALDB = axios.create({
 
 export const buscarPorNombre = async (nombre) => {
   const response = await MEALDB.get(`/search.php?s=${nombre}`);
+  console.log("respuesta completa", response.data);
+  console.log("receta encontrada:", response.data.meals);
   return response.data.meals; // puede ser null si no encuentra
 };
 
