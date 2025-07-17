@@ -76,7 +76,7 @@ function Favoritos() {
                     className="btn btn-danger mt-2"
                     onClick={() => eliminar(f.idMeal)}
                   >
-                    ❌ Quitar de favoritos
+                     Quitar de favoritos
                   </button>
                 </div>
               </div>

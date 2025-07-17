@@ -15,6 +15,7 @@ function Login({setIsLoggedIn}) {
       try {
         const response = await API.post("/auth/login", {username,password,});
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.usuario));
         setIsLoggedIn(true);
         navigate("/Home");
       } catch (err) {

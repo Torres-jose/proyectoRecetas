@@ -16,6 +16,7 @@ function RecipeDetails() {
     const verificarFavorito = async () => {
       try {
         const token = localStorage.getItem("token");
+        console.log('verificando token:', token)
         if (!token) return;
 
         const response = await API.get("/favoritos");

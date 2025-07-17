@@ -8,6 +8,7 @@ function Navbar({ isLoggedIn, setIsLoggedIn}) {
 
   const cerrarSesion = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setIsLoggedIn(false);
     navigate("/Login");
   };
