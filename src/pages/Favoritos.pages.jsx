@@ -28,6 +28,7 @@ function Favoritos() {
   };
 
   const verDetalle = (receta) => {
+     console.log("Receta enviada favorito al detalle:", receta);
     navigate("/detalle", { state: { receta } });
   };
 
@@ -61,8 +62,8 @@ function Favoritos() {
                   src={f.imagen}
                   className="card-img-top"
                   alt={f.nombre}
-                  style={{ cursor: "pointer" }}
                   onClick={() => verDetalle(f)}
+                  style={{ cursor: "pointer" }}
                 />
                 <div className="card-body d-flex flex-column justify-content-between">
                   <h5

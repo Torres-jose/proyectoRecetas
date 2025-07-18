@@ -6,9 +6,36 @@ import { useState, useEffect } from "react";
 function RecipeDetails() {
   const location = useLocation();
   const navigate = useNavigate();
-  const receta = location.state?.receta;
 
+  const normalizarReceta = (receta) => {
+  if (!receta.strMeal && receta.nombre) {
+    // Es una receta desde MongoDB
+    const normalizada = {
+      ...receta,
+      strMeal: receta.nombre,
+      strMealThumb: receta.imagen,
+      strInstructions: receta.instrucciones,
+      strYoutube: receta.video,
+    };
+
+    // Convertir ingredientes y medidas en formato strIngredient1, strMeasure1, etc.
+    receta.ingredientes?.forEach((ing, i) => {
+      normalizada[`strIngredient${i + 1}`] = ing;
+    });
+    receta.medidas?.forEach((med, i) => {
+      normalizada[`strMeasure${i + 1}`] = med;
+    });
+
+    return normalizada;
+  }
+
+  // Ya está normalizada
+  return receta;
+};
+  const recetaOriginal = location.state?.receta;
+  const receta = normalizarReceta(recetaOriginal)
   const [isFavorito, setIsFavorito] = useState(false);
+  
 
   useEffect(() => {
     if (!receta) return;
@@ -16,12 +43,11 @@ function RecipeDetails() {
     const verificarFavorito = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log('verificando token:', token)
         if (!token) return;
 
         const response = await API.get("/favoritos");
         const favoritos = response.data;
-
+       
         const yaEsFavorito = favoritos.some((f) => f.idMeal === receta.idMeal);
         setIsFavorito(yaEsFavorito);
       } catch (error) {
@@ -61,6 +87,7 @@ function RecipeDetails() {
   return (
     <div className="container mt-4">
       <h2>{receta.strMeal}</h2>
+      
       <img src={receta.strMealThumb} alt={receta.strMeal} className="img-fluid mb-3" />
       
       <h4>Instrucciones</h4>

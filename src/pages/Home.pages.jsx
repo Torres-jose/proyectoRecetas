@@ -32,6 +32,7 @@ function Home() {
   };
 
   const verDetalle = (receta) => {
+    console.log("Receta enviada de home al detalle:", receta);
     navigate("/detalle", { state: { receta } });
   };
 
