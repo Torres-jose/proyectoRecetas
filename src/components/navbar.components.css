@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive:wght@600&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #3a1c71, #d76d77, #ffaf7b);
+  padding: 15px 30px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-family: 'Edu NSW ACT Cursive', cursive;
+  font-size: 28px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  position: relative;
+  padding: 6px 10px;
+  transition: all 0.3s ease;
+}
+
+.nav-links li a::before,
+.nav-links li a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: white;
+  left: 0;
+  transition: width 300ms ease;
+}
+
+.nav-links li a::before {
+  top: 0;
+}
+
+.nav-links li a::after {
+  bottom: 0;
+}
+
+.nav-links li a:hover::before,
+.nav-links li a:hover::after {
+  width: 100%;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-primary {
+  background: #ffffff;
+  color: #3a1c71;
+  border: none;
+  padding: 10px 16px;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #f6e58d;
+  color: #3a1c71;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #fff;
+  border: 2px solid white;
+  padding: 10px 16px;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: white;
+  color: #d76d77;
+}
+
+/* 🌐 Responsivo */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    display: none;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-buttons {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start; /* Alinea los elementos a la izquierda en lugar de centrados */
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    gap: 15px; /* Más espacio entre los enlaces */
+  }
+
+  .nav-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centra los botones */
+    gap: 10px;
+    margin-top: 10px;
+  }
+}

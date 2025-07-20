@@ -1,9 +1,7 @@
+import ('./navbar.components.css')
 import { Link, useNavigate } from "react-router-dom";
-import Login from "../pages/Login.pages";
-import Home from "../pages/Home.pages";
-import Landing from "../pages/Landing.pages";
-import Register from "../pages/registre.pages";
-function Navbar({ isLoggedIn, setIsLoggedIn}) {
+
+function Navbar({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
 
   const cerrarSesion = () => {
@@ -17,57 +15,51 @@ function Navbar({ isLoggedIn, setIsLoggedIn}) {
     navigate("/Login");
   };
 
+  /*const irAlRegistro = () => {
+    navigate("/register");
+  };*/
+
   const navMostrar = () => {
     isLoggedIn ? navigate("/Home") : navigate("/");
   };
 
-  const irAlRegistro = () => {
-    navigate("/register");
-  };
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
-        <a className="navbar-brand" href="" onClick={navMostrar}>
-          Navbar
-        </a>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav">
-            {isLoggedIn ? (
-              <>
-                <li className="nav-item">
-                  <Link to="/home">Home</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/favorito">Favorito</Link>
-                </li>
+    <nav className="navbar">
+      <div className="logo" onClick={navMostrar} style={{ cursor: "pointer" }}>
+        Mis Recetas
+      </div>
 
-                <li>
-                  <button onClick={cerrarSesion}>Cerrar Sesion</button>
-                </li>
-              </>
-            ) : (
-              <>
-                <li className="nav-item">
-                  <button onClick={irAlLogin}>Login</button>
-                </li>
-                <li className="nav-item">
-                  <button onClick={irAlRegistro}>Registrar</button>
-                </li>
-              </>
-            )}
-          </ul>
-        </div>
+      <ul className="nav-links">
+        {isLoggedIn && (
+          <>
+            <li className="nav-li">
+              <Link to="/home">Inicio</Link>
+            </li>
+            <li className="nav-li">
+              <Link to="/favorito">Favoritos</Link>
+            </li>
+            <li className="nav-li">
+              <Link to="/favorito">Mis Recetas</Link>
+            </li>
+            <li className="nav-li">
+              <Link to="/favorito">Nosotros</Link>
+            </li>
+          </>
+        )}
+      </ul>
+
+      <div className="nav-buttons">
+        {isLoggedIn ? (
+          <button className="btn-secondary" onClick={cerrarSesion}>
+            Cerrar Sesión
+          </button>
+        ) : (
+          <>
+            <button className="btn-primary" onClick={irAlLogin}>
+              Login
+            </button>
+          </>
+        )}
       </div>
     </nav>
   );

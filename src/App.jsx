@@ -1,6 +1,7 @@
 import { Routes, Route} from "react-router-dom";
 import { useState, useEffect } from "react";
 import Navbar from "./components/navbar.components"
+import Footer from "./components/Footer.components";
 import Landing from "./pages/Landing.pages";
 import Login from "./pages/Login.pages";
 import Home from "./pages/Home.pages";
@@ -23,6 +24,7 @@ function App() {
 
   return (
    <>
+    <div className ="min-h-screen flex flex-col bg-gray-50">
     <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn ={setIsLoggedIn}/>
     <Routes>
        <Route path="/" element ={<Landing/>} /> 
@@ -35,6 +37,8 @@ function App() {
        <Route path="/detalle" element ={<DetalleRecetas/>}/>
        </Route>
     </Routes>
+    <Footer/>
+    </div>
    </>
      
     
