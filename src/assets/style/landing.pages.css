@@ -1,0 +1,86 @@
+/* Debe ser lo primero en tu archivo CSS */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive:wght@600&display=swap');
+
+
+.parent {
+  display: flex;
+  /* izquierda contenido, derecha cards */
+  gap: 32px;
+  height: 70%;
+  width: 100%;
+  position:static;
+  background-color: red;
+  
+}
+.div1{
+  display: grid;
+  margin-left: 2px;
+  padding: 20px;
+  width: auto;
+  grid-template-rows: auto;
+  background-color: aqua;
+
+
+}
+h2 {
+  text-align: center;
+  font-family: 'Edu NSW ACT Cursive', cursive;
+  font-size: 3rem;
+  color: #333;
+}
+
+h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.discripcion{
+  font-family: 'Open Sans', Sans-serif;
+  color: #555;
+  text-align: justify;
+}
+
+.btn_registro {
+  background-color: #9d60cf;
+  color: white;
+  font-weight: bold;
+  padding: 12px 24px;
+  width: 15%;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+.btn_registro:hover {
+  background-color: #c522c5;
+  transform: scale(1.05);
+}
+
+.div2{
+  height: 85%;
+  width: 200px;
+  display: grid;
+  position: relative;
+  background-color: yellow;
+}
+
+.card1{
+  
+   background-color: violet;
+}
+
+.card2{
+  
+  background-color: rgb(130, 238, 135);
+}
+
+.card3{
+   
+  background-color: rgb(25, 13, 190);
+}

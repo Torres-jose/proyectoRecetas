@@ -1,29 +1,41 @@
-import './landing.pages.css'
+import "../assets/style/landing.pages.css";
+import { useNavigate } from "react-router-dom";
 
-function Landing(){
-    return(
-<>
-
-<div className="landing-container">
-      <header className="landing-header">
-        <h1>Mi Página</h1>
-      </header>
-
-      <section className="landing-hero">
-        <h2>Bienvenido</h2>
-        <p>Descubre lo que tenemos para ti.</p>
-      </section>
-
-      <section className="landing-features">
-        <div className="feature">🔧 Herramienta 1</div>
-        <div className="feature">🚀 Herramienta 2</div>
-        <div className="feature">🛡️ Herramienta 3</div>
-      </section>
-
-    
-    </div>
-</>
-    );
+function Landing() {
+  const navigate = useNavigate();
+  const btn_registro = () => {
+    navigate("/Register");
+  };
+  return (
+    <>
+      <main>
+        <section>
+          <div className="parent">
+            <div className="div1">
+              <h2>Bienvenido</h2>
+              <h3>
+                Tu lugar para descubrir, guardar y saborear las mejores recetas
+              </h3>
+              <p className="discripcion">
+                Comparte tus recetas favoritas, inspírate con creaciones de
+                otros cocineros y guarda todo lo que te gusta.
+                <br />
+                Bienvenido a una comunidad donde la comida une personas.
+              </p>
+              <button className="btn_registro" onClick={btn_registro}>
+                Registrate
+              </button>
+            </div>
+            <div className="div2">
+              <div className="card1">1</div>
+              <div className="card2">2</div>
+              <div className="card3">3</div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
 }
 
 export default Landing;

@@ -1,4 +1,4 @@
-import ('./navbar.components.css')
+import ('../assets/style/navbar.components.css')
 import { Link, useNavigate } from "react-router-dom";
 
 function Navbar({ isLoggedIn, setIsLoggedIn }) {
