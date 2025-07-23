@@ -1,7 +1,7 @@
 import { Routes, Route} from "react-router-dom";
 import { useState, useEffect } from "react";
 import Navbar from "./components/navbar.components"
-import Footer from "./components/Footer.components";
+//import Footer from "./components/Footer.components";
 import Landing from "./pages/Landing.pages";
 import Login from "./pages/Login.pages";
 import Home from "./pages/Home.pages";
@@ -37,7 +37,7 @@ function App() {
        <Route path="/detalle" element ={<DetalleRecetas/>}/>
        </Route>
     </Routes>
-    <Footer/>
+  
     </div>
    </>
      

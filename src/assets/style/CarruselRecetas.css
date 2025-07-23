@@ -1,0 +1,36 @@
+.carrusel-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px;
+  scroll-snap-type: x mandatory;
+}
+
+.card-carrusel {
+  flex: 0 0 auto;
+  width: 250px;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  scroll-snap-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.card-carrusel img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card-carrusel h3 {
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+.card-carrusel p {
+  font-size: 0.9rem;
+  color: #333;
+}

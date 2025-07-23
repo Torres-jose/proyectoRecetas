@@ -7,9 +7,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(to right, #3a1c71, #d76d77, #ffaf7b);
+  
   padding: 15px 30px;
   flex-wrap: wrap;
+   background-color: rgba(255, 255, 255, 0.1); /* blanco tenue */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); /* soporte para Safari */
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  color: black;
 }
 
 .logo {
@@ -17,6 +25,7 @@
   font-size: 28px;
   color: #fff;
   font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .nav-links {
@@ -35,6 +44,7 @@
   position: relative;
   padding: 6px 10px;
   transition: all 0.3s ease;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .nav-links li a::before,
@@ -46,6 +56,7 @@
   background-color: white;
   left: 0;
   transition: width 300ms ease;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .nav-links li a::before {

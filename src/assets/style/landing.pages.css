@@ -1,86 +1,103 @@
-/* Debe ser lo primero en tu archivo CSS */
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive:wght@600&display=swap');
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-.parent {
-  display: flex;
-  /* izquierda contenido, derecha cards */
-  gap: 32px;
-  height: 70%;
+.presentacion{
   width: 100%;
-  position:static;
-  background-color: red;
-  
-}
-.div1{
-  display: grid;
-  margin-left: 2px;
-  padding: 20px;
-  width: auto;
-  grid-template-rows: auto;
-  background-color: aqua;
-
-
-}
-h2 {
-  text-align: center;
-  font-family: 'Edu NSW ACT Cursive', cursive;
-  font-size: 3rem;
-  color: #333;
-}
-
-h3 {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 20px;
-  color: #555;
-  line-height: 1.6;
-}
-
-.discripcion{
-  font-family: 'Open Sans', Sans-serif;
-  color: #555;
-  text-align: justify;
-}
-
-.btn_registro {
-  background-color: #9d60cf;
-  color: white;
-  font-weight: bold;
-  padding: 12px 24px;
-  width: 15%;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s;
-}
-
-.btn_registro:hover {
-  background-color: #c522c5;
-  transform: scale(1.05);
-}
-
-.div2{
-  height: 85%;
-  width: 200px;
-  display: grid;
+  height: 95vh;
+  display: flex;
   position: relative;
-  background-color: yellow;
+  top: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-image: url('../img/fondo.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.card1{
+
+.bienvenido {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+  background-color: transparent;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  color: white;
   
-   background-color: violet;
+  max-width: 600px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
-.card2{
-  
-  background-color: rgb(130, 238, 135);
+.bienvenido h1 {
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
-.card3{
-   
-  background-color: rgb(25, 13, 190);
+.bienvenido h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.bienvenido p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #f0f0f0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+
+.card1 {
+  position: absolute;
+  top: 30%;
+  right: 25%;
+  width: 200px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-image1 {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+}
+
+.card2 {
+  position: absolute;
+  top: 90px;
+  right: 100px;
+  width: 200px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card3 {
+  position: absolute;
+  bottom:  25px;
+  right: 100px;
+  width: 200px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.card-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
 }
