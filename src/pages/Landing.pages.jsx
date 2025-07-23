@@ -1,15 +1,15 @@
 import "../assets/style/landing.pages.css";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import card1 from '../assets/img/card1.jpeg'
 import card2 from '../assets/img/card2.jpeg'
 import card3 from '../assets/img/card3.jpeg'
 import CarruselRecetas from "../components/CarruselRecetas";
 
 function Landing() {
-  /*const navigate = useNavigate();
+  const navigate = useNavigate();
   const btn_registro = () => {
     navigate("/Register");
-  };*/
+  }
   return (
     <>
       <main>
@@ -24,6 +24,7 @@ function Landing() {
                 otros cocineros y guarda todo lo que te gusta.
                 Bienvenido a una comunidad donde la comida une personas.
               </p>
+              <button className="btn-registrate" onClick={btn_registro}>Registrate</button>
             </div>
             <div className="card1">
               <img src={card3} alt="Decoración" className="card-image1" />
@@ -36,8 +37,8 @@ function Landing() {
             </div>
          </div>
          <section className="carrusel-section">
-        <h2 style={{ textAlign: "center", margin: "40px 0" }}>
-          Inspírate con recetas aleatorias
+        <h2>
+          Inspírate Con Nuestras Recetas
         </h2>
         <CarruselRecetas />
       </section>

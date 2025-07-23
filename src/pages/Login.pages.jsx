@@ -1,63 +1,90 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import '../assets/style/Login.style.css'
 import API from "../api/api";
 
-function Login({setIsLoggedIn}) {
+function Login({ setIsLoggedIn }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
-    const handleLogin = async (e) => {
-      e.preventDefault();
-
-      try {
-        const response = await API.post("/auth/login", {username,password,});
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.usuario));
-        setIsLoggedIn(true);
-        navigate("/Home");
-      } catch (err) {
-        if (err.response && err.response.data && err.response.data.message) {
-          setError(err.response.data.message);
-        } else {
-          setError("Error al iniciar sesión");
-        }
+    try {
+      const response = await API.post("/auth/login", { username, password });
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.usuario));
+      setIsLoggedIn(true);
+      navigate("/Home");
+    } catch (err) {
+      if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Error al iniciar sesión");
       }
-    };
-    return (
-    <div className="container mt-5">
-      <h2>Iniciar Sesión</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleLogin}>
-        <div className="mb-3">
-          <label>username</label>
-          <input
-            type="text"
-            className="form-control"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="login-container">
+      <div className="login-card">
+        <div className="login-header">
+          <h2>Bienvenido</h2>
+          <p>Ingresa tus credenciales para continuar</p>
         </div>
 
-        <div className="mb-3">
-          <label>Contraseña</label>
-          <input
-            type="password"
-            className="form-control"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
+        {error && <div className="login-error">{error}</div>}
 
-        <button type="submit" className="btn btn-primary">
-          Iniciar Sesión
-        </button>
-      </form>
+        <form onSubmit={handleLogin} className="login-form">
+          <div className="input-group">
+            <label htmlFor="username">Usuario</label>
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Ingresa tu usuario"
+              required
+            />
+            <span className="input-icon">👤</span>
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="password">Contraseña</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Ingresa tu contraseña"
+              required
+            />
+            <span className="input-icon">🔒</span>
+          </div>
+
+          <button type="submit" className="login-button" disabled={isLoading}>
+            {isLoading ? (
+              <span className="spinner"></span>
+            ) : (
+              "Iniciar Sesión"
+            )}
+          </button>
+        </form>
+
+        <div className="login-footer">
+          <p>¿No tienes una cuenta? <a href="/register">Regístrate</a></p>
+          <a href="/forgot-password">¿Olvidaste tu contraseña?</a>
+        </div>
+      </div>
     </div>
   );
 }
+
 export default Login;
