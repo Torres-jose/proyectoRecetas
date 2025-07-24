@@ -14,6 +14,18 @@ function Login({ setIsLoggedIn }) {
     e.preventDefault();
     setIsLoading(true);
     setError("");
+    // eliminar esta parte al terminar
+    if (username === "admin" && password === "pasword") {
+      const fakeUser = { username: "admin", rol: "admin" };
+      const fakeToken = "fake-token-123";
+
+      localStorage.setItem("token", fakeToken);
+      localStorage.setItem("user", JSON.stringify(fakeUser));
+      setIsLoggedIn(true);
+      navigate("/Home");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const response = await API.post("/auth/login", { username, password });

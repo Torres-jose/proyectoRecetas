@@ -4,7 +4,10 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+  background:
+    linear-gradient(135deg, rgba(58, 28, 113, 0.9) 0%, rgba(215, 109, 119, 0.9) 50%, rgba(255, 175, 123, 0.9) 100%),
+    url('../img/footer.jpeg');
+  background-blend-mode: overlay;
   padding: 20px;
 }
 
@@ -30,12 +33,12 @@
 .register-header h2 {
   color: #3a1c71;
   margin-bottom: 8px;
-  font-size: 28px;
+  font-size: 24px;
 }
 
 .register-header p {
   color: #666;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 /* Formulario */
@@ -97,13 +100,13 @@
   background: linear-gradient(to right, #3a1c71, #d76d77);
   color: white;
   border: none;
-  padding: 16px;
+  padding: 14px;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .register-button:hover {
@@ -145,7 +148,7 @@
 .register-footer {
   margin-top: 30px;
   text-align: center;
-  font-size: 14px;
+  font-size: 13px;
   color: #666;
 }
 
@@ -157,4 +160,12 @@
 
 .register-footer a:hover {
   text-decoration: underline;
+}
+
+.footer {
+  font-family: 'Courier New', Courier, monospace;
+  color: rgb(10, 10, 10);
+  text-align: center;
+  padding: 30px;
+  font-weight: 600;
 }

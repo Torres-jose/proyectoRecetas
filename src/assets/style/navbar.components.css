@@ -1,16 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive:wght@600&display=swap');
 
-
-
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
   padding: 15px 30px;
   flex-wrap: wrap;
-   background-color: rgba(255, 255, 255, 0.1); /* blanco tenue */
+  background-color: rgba(255, 255, 255, 0.1); /* blanco tenue */
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px); /* soporte para Safari */
   position: absolute;
@@ -78,19 +75,22 @@
 }
 
 .btn-primary {
-  background: #ffffff;
-  color: #3a1c71;
-  border: none;
+  background: transparent;
+  color: #fff;
+  border: none; /* Eliminados los bordes */
   padding: 10px 16px;
   font-weight: 600;
   border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  text-transform: uppercase; /* LOGIN en mayúsculas */
 }
 
 .btn-primary:hover {
-  background: #f6e58d;
+  background: #c7a63c; /* 🎨 CAMBIA ESTE COLOR AQUÍ MANUALMENTE */
   color: #3a1c71;
+  text-shadow: none;
 }
 
 .btn-secondary {
@@ -102,11 +102,13 @@
   border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .btn-secondary:hover {
   background: white;
   color: #d76d77;
+  text-shadow: none;
 }
 
 /* 🌐 Responsivo */
