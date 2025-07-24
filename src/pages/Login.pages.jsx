@@ -14,6 +14,7 @@ function Login({ setIsLoggedIn }) {
     e.preventDefault();
     setIsLoading(true);
     setError("");
+    
     // eliminar esta parte al terminar
     if (username === "admin" && password === "pasword") {
       const fakeUser = { username: "admin", rol: "admin" };
