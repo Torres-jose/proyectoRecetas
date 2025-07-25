@@ -1,17 +1,101 @@
-// src/pages/Home.pages.jsx
-import { useState } from "react";
+import { useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
-import { buscarPorNombre, buscarPorIngrediente } from "../api/apiexterna.api";
+import { buscarPorNombre, buscarPorIngrediente, obtenerRandom } from "../api/apiexterna.api";
+import { FaHeart, FaRegHeart, FaSearch, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import API from "../api/api";
+import "../assets/style/Home.style.css";
 
 function Home() {
   const [busqueda, setBusqueda] = useState("");
   const [recetas, setRecetas] = useState([]);
+  const [recetasRandom, setRecetasRandom] = useState([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [favoritos, setFavoritos] = useState([]);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const sliderRef = useRef(null);
   const navigate = useNavigate();
+
+  // Función para desplazar el slider
+  const scrollSlider = (direction) => {
+    const slider = sliderRef.current;
+    if (slider) {
+      const scrollAmount = direction === 'left' ? -300 : 300;
+      slider.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  // Función para obtener múltiples recetas aleatorias
+  const obtenerMultiplesRandom = async (cantidad) => {
+    const promesas = Array(cantidad).fill().map(() => obtenerRandom());
+    const resultados = await Promise.all(promesas);
+    return resultados.filter(receta => receta !== null && receta !== undefined);
+  };
+
+  // Cargar recetas aleatorias al inicio
+  useEffect(() => {
+    const cargarRecetasIniciales = async () => {
+      try {
+        setLoading(true);
+        const randomRecipes = await obtenerMultiplesRandom(10);
+        setRecetasRandom(randomRecipes);
+        
+        // Cargar favoritos si el usuario está logueado
+        const token = localStorage.getItem("token");
+        if (token) {
+          const response = await API.get("/favoritos");
+          setFavoritos(response.data);
+        }
+      } catch (err) {
+        console.error("Error al cargar recetas iniciales:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    cargarRecetasIniciales();
+  }, []);
+
+  // Efecto para el slider infinito y control de botones
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (!slider || loading) return;
+
+    const handleScroll = () => {
+      setCanScrollLeft(slider.scrollLeft > 0);
+      setCanScrollRight(
+        slider.scrollLeft < slider.scrollWidth - slider.clientWidth - 1
+      );
+      
+      if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 100) {
+        cargarMasRecetas();
+      }
+    };
+
+    slider.addEventListener('scroll', handleScroll);
+    return () => slider.removeEventListener('scroll', handleScroll);
+  }, [recetasRandom, loading]);
+
+  const cargarMasRecetas = async () => {
+    try {
+      setLoading(true);
+      const nuevasRecetas = await obtenerMultiplesRandom(5);
+      setRecetasRandom(prev => [...prev, ...nuevasRecetas]);
+    } catch (err) {
+      console.error("Error al cargar más recetas:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const buscarRecetas = async () => {
     setError("");
     setRecetas([]);
+    setLoading(true);
 
     try {
       let resultados = await buscarPorNombre(busqueda);
@@ -28,43 +112,122 @@ function Home() {
     } catch (err) {
       console.error("Error al buscar recetas:", err);
       setError("Ocurrió un error al buscar recetas.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const verDetalle = (receta) => {
-    console.log("Receta enviada de home al detalle:", receta);
     navigate("/detalle", { state: { receta } });
   };
 
+  const toggleFavorito = async (receta) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+
+      const yaEsFavorito = favoritos.some(f => f.idMeal === receta.idMeal);
+      
+      if (yaEsFavorito) {
+        await API.delete(`/favoritos/${receta.idMeal}`);
+        setFavoritos(prev => prev.filter(f => f.idMeal !== receta.idMeal));
+      } else {
+        await API.post("/favoritos", { 
+          idMeal: receta.idMeal,
+          nombre: receta.strMeal,
+          imagen: receta.strMealThumb
+        });
+        setFavoritos(prev => [...prev, receta]);
+      }
+    } catch (err) {
+      console.error("Error al actualizar favoritos", err);
+    }
+  };
+
+  const esFavorito = (idMeal) => {
+    return favoritos.some(f => f.idMeal === idMeal);
+  };
+
   return (
-    <div className="container mt-4">
-      <h2>Buscar Recetas</h2>
-      <input
-        type="text"
-        className="form-control"
-        placeholder="Ej: Chicken o Garlic"
-        value={busqueda}
-        onChange={(e) => setBusqueda(e.target.value)}
-      />
-      <button className="btn btn-success mt-2" onClick={buscarRecetas}>
-        Buscar
-      </button>
-
-      {error && <p className="text-danger mt-3">{error}</p>}
-
-      <div className="row mt-4">
-        {recetas.map((r) => (
-          <div className="col-md-4 mb-4" key={r.idMeal}>
-            <div
-              className="card h-100"
-              onClick={() => verDetalle(r)}
-              style={{ cursor: "pointer" }}
-            >
-              <img src={r.strMealThumb} className="card-img-top" alt={r.strMeal} />
-              <div className="card-body">
-                <h5 className="card-title">{r.strMeal}</h5>
+    <div className="home-container">
+      {/* Slider de recetas con botones de navegación */}
+      <div className="recipes-slider-container">
+        <h2>Descubre Recetas</h2>
+        <div className="slider-wrapper">
+          <button 
+            className="slider-button left" 
+            onClick={() => scrollSlider('left')}
+            disabled={!canScrollLeft}
+            aria-label="Recetas anteriores"
+          >
+            <FaChevronLeft />
+          </button>
+          
+          <div className="recipes-slider" ref={sliderRef}>
+            {recetasRandom.map((r) => (
+              <div className="recipe-slide" key={r.idMeal} onClick={() => verDetalle(r)}>
+                <div className="favorite-icon" onClick={(e) => {
+                  e.stopPropagation();
+                  toggleFavorito(r);
+                }}>
+                  {esFavorito(r.idMeal) ? <FaHeart color="red" /> : <FaRegHeart />}
+                </div>
+                <img src={r.strMealThumb} alt={r.strMeal} />
+                <h3>{r.strMeal}</h3>
               </div>
+            ))}
+            {loading && <div className="loading-slide">Cargando más recetas...</div>}
+          </div>
+          
+          <button 
+            className="slider-button right" 
+            onClick={() => scrollSlider('right')}
+            disabled={!canScrollRight}
+            aria-label="Recetas siguientes"
+          >
+            <FaChevronRight />
+          </button>
+        </div>
+      </div>
+
+      {/* Barra de búsqueda profesional */}
+      <div className="search-container">
+        <h2>Buscar Recetas</h2>
+        <div className="search-bar">
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Buscar por nombre o ingrediente..."
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && buscarRecetas()}
+          />
+          <button className="search-button" onClick={buscarRecetas} disabled={loading}>
+            <FaSearch /> {loading ? 'Buscando...' : 'Buscar'}
+          </button>
+        </div>
+      </div>
+
+      {/* Resultados de búsqueda */}
+      {error && <p className="error-message">{error}</p>}
+
+      <div className="search-results">
+        {recetas.map((r) => (
+          <div className="recipe-card" key={r.idMeal}>
+            <div className="card-content" onClick={() => verDetalle(r)}>
+              <img src={r.strMealThumb} alt={r.strMeal} />
+              <h3>{r.strMeal}</h3>
             </div>
+            <button 
+              className={`favorite-button ${esFavorito(r.idMeal) ? 'active' : ''}`}
+              onClick={() => toggleFavorito(r)}
+            >
+              {esFavorito(r.idMeal) ? <FaHeart /> : <FaRegHeart />}
+              {esFavorito(r.idMeal) ? ' En favoritos' : ' Agregar a favoritos'}
+            </button>
           </div>
         ))}
       </div>

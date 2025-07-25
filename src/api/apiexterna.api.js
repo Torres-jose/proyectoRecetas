@@ -25,3 +25,15 @@ export const obtenerRandom = async () => {
   const response = await MEALDB.get(`/random.php`);
   return response.data.meals?.[0];
 };
+
+// Nueva función para obtener múltiples recetas aleatorias
+export const obtenerMultiplesRandom = async (cantidad = 10) => {
+  try {
+    const promesas = Array(cantidad).fill().map(() => obtenerRandom());
+    const recetas = await Promise.all(promesas);
+    return recetas.filter(receta => receta !== undefined);
+  } catch (error) {
+    console.error("Error al obtener recetas aleatorias:", error);
+    return [];
+  }
+};
