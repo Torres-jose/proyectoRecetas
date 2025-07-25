@@ -38,12 +38,7 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
             <li className="nav-li">
               <Link to="/favorito">Favoritos</Link>
             </li>
-            <li className="nav-li">
-              <Link to="/favorito">Mis Recetas</Link>
-            </li>
-            <li className="nav-li">
-              <Link to="/favorito">Nosotros</Link>
-            </li>
+          
           </>
         )}
       </ul>

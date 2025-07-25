@@ -16,7 +16,7 @@ function Login({ setIsLoggedIn }) {
     setError("");
     
     // eliminar esta parte al terminar
-    if (username === "admin" && password === "pasword") {
+   /* if (username === "admin" && password === "pasword") {
       const fakeUser = { username: "admin", rol: "admin" };
       const fakeToken = "fake-token-123";
 
@@ -26,7 +26,7 @@ function Login({ setIsLoggedIn }) {
       navigate("/Home");
       setIsLoading(false);
       return;
-    }
+    }*/
 
     try {
       const response = await API.post("/auth/login", { username, password });

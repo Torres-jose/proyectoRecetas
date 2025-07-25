@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
-import ('../assets/style/Favoritos.css')
+import ('../assets/style/Favoritos.css');
 
 function Favoritos() {
   const [favoritos, setFavoritos] = useState([]);
@@ -15,7 +15,10 @@ function Favoritos() {
       setLoading(true);
       setError("");
       const res = await API.get("/favoritos");
-      setFavoritos(res.data);
+
+      // ✅ Validar que el backend devuelve un array
+      setFavoritos(Array.isArray(res.data) ? res.data : []);
+      
     } catch (error) {
       console.error("Error al cargar favoritos", error);
       if (error.response?.status === 401) {
@@ -118,7 +121,7 @@ function Favoritos() {
           </div>
         )}
 
-        {favoritos.length === 0 ? (
+        {!Array.isArray(favoritos) || favoritos.length === 0 ? (
           <div className="estado-vacio">
             <h4>No tienes recetas favoritas aún</h4>
             <p>
@@ -126,7 +129,7 @@ function Favoritos() {
             </p>
             <button 
               className="btn-explorar"
-              onClick={() => navigate("/recetas")}
+              onClick={() => navigate("/home")}
             >
               🍽️ Explorar Recetas
             </button>

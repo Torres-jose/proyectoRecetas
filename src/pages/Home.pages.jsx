@@ -17,7 +17,6 @@ function Home() {
   const sliderRef = useRef(null);
   const navigate = useNavigate();
 
-  // Función para desplazar el slider
   const scrollSlider = (direction) => {
     const slider = sliderRef.current;
     if (slider) {
@@ -29,14 +28,12 @@ function Home() {
     }
   };
 
-  // Función para obtener múltiples recetas aleatorias
   const obtenerMultiplesRandom = async (cantidad) => {
     const promesas = Array(cantidad).fill().map(() => obtenerRandom());
     const resultados = await Promise.all(promesas);
     return resultados.filter(receta => receta !== null && receta !== undefined);
   };
 
-  // Cargar recetas aleatorias al inicio
   useEffect(() => {
     const cargarRecetasIniciales = async () => {
       try {
@@ -44,11 +41,11 @@ function Home() {
         const randomRecipes = await obtenerMultiplesRandom(10);
         setRecetasRandom(randomRecipes);
         
-        // Cargar favoritos si el usuario está logueado
         const token = localStorage.getItem("token");
         if (token) {
           const response = await API.get("/favoritos");
-          setFavoritos(response.data);
+          const data = Array.isArray(response.data) ? response.data : [];
+          setFavoritos(data);
         }
       } catch (err) {
         console.error("Error al cargar recetas iniciales:", err);
@@ -60,7 +57,6 @@ function Home() {
     cargarRecetasIniciales();
   }, []);
 
-  // Efecto para el slider infinito y control de botones
   useEffect(() => {
     const slider = sliderRef.current;
     if (!slider || loading) return;
@@ -129,8 +125,8 @@ function Home() {
         return;
       }
 
-      const yaEsFavorito = favoritos.some(f => f.idMeal === receta.idMeal);
-      
+      const yaEsFavorito = Array.isArray(favoritos) && favoritos.some(f => f.idMeal === receta.idMeal);
+
       if (yaEsFavorito) {
         await API.delete(`/favoritos/${receta.idMeal}`);
         setFavoritos(prev => prev.filter(f => f.idMeal !== receta.idMeal));
@@ -148,12 +144,11 @@ function Home() {
   };
 
   const esFavorito = (idMeal) => {
-    return favoritos.some(f => f.idMeal === idMeal);
+    return Array.isArray(favoritos) && favoritos.some(f => f.idMeal === idMeal);
   };
 
   return (
     <div className="home-container">
-      {/* Slider de recetas con botones de navegación */}
       <div className="recipes-slider-container">
         <h2>Descubre Recetas</h2>
         <div className="slider-wrapper">
@@ -193,7 +188,6 @@ function Home() {
         </div>
       </div>
 
-      {/* Barra de búsqueda profesional */}
       <div className="search-container">
         <h2>Buscar Recetas</h2>
         <div className="search-bar">
@@ -211,7 +205,6 @@ function Home() {
         </div>
       </div>
 
-      {/* Resultados de búsqueda */}
       {error && <p className="error-message">{error}</p>}
 
       <div className="search-results">
